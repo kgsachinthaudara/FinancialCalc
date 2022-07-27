@@ -11,6 +11,14 @@
 		CEA569DC28905F8B00A3D811 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA569DB28905F8B00A3D811 /* ContentView.swift */; };
 		CEA569DE28905F8C00A3D811 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA569DD28905F8C00A3D811 /* Assets.xcassets */; };
 		CEA569E128905F8C00A3D811 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA569E028905F8C00A3D811 /* Preview Assets.xcassets */; };
+		CEA569EC28918ABE00A3D811 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA569EB28918ABE00A3D811 /* HomeView.swift */; };
+		CEA569F128918BB600A3D811 /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA569F028918BB600A3D811 /* TabItem.swift */; };
+		CEA569F52891A7F200A3D811 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = CEA569F72891A7F200A3D811 /* Localizable.strings */; };
+		CEA569FA2891B5E700A3D811 /* SavingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA569F92891B5E700A3D811 /* SavingsView.swift */; };
+		CEA56A032891CFCF00A3D811 /* Financial_Calc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CEA56A012891CFCF00A3D811 /* Financial_Calc.xcdatamodeld */; };
+		CEA56A052891D78800A3D811 /* FormComponentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA56A042891D78800A3D811 /* FormComponentModel.swift */; };
+		CEA56A072891DA9700A3D811 /* SavingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA56A062891DA9700A3D811 /* SavingsViewModel.swift */; };
+		CEA56A092891DB6800A3D811 /* CommonFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA56A082891DB6800A3D811 /* CommonFunctions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +27,15 @@
 		CEA569DB28905F8B00A3D811 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEA569DD28905F8C00A3D811 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEA569E028905F8C00A3D811 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CEA569EB28918ABE00A3D811 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		CEA569F028918BB600A3D811 /* TabItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabItem.swift; sourceTree = "<group>"; };
+		CEA569F62891A7F200A3D811 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEA569F82891A7F400A3D811 /* si */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = si; path = si.lproj/Localizable.strings; sourceTree = "<group>"; };
+		CEA569F92891B5E700A3D811 /* SavingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsView.swift; sourceTree = "<group>"; };
+		CEA56A022891CFCF00A3D811 /* Financial_Calc.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Financial_Calc.xcdatamodel; sourceTree = "<group>"; };
+		CEA56A042891D78800A3D811 /* FormComponentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormComponentModel.swift; sourceTree = "<group>"; };
+		CEA56A062891DA9700A3D811 /* SavingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavingsViewModel.swift; sourceTree = "<group>"; };
+		CEA56A082891DB6800A3D811 /* CommonFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunctions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +68,11 @@
 		CEA569D828905F8B00A3D811 /* FinancialCalc */ = {
 			isa = PBXGroup;
 			children = (
+				CEA569F22891A7C300A3D811 /* Utils */,
+				CEA569EF28918B4400A3D811 /* Model */,
+				CEA569EA28918A5B00A3D811 /* View */,
+				CEA569E928918A3E00A3D811 /* ViewModel */,
+				CEA569E828918A3700A3D811 /* Data */,
 				CEA569D928905F8B00A3D811 /* FinancialCalcApp.swift */,
 				CEA569DB28905F8B00A3D811 /* ContentView.swift */,
 				CEA569DD28905F8C00A3D811 /* Assets.xcassets */,
@@ -65,6 +87,49 @@
 				CEA569E028905F8C00A3D811 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CEA569E828918A3700A3D811 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				CEA56A012891CFCF00A3D811 /* Financial_Calc.xcdatamodeld */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CEA569E928918A3E00A3D811 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CEA56A062891DA9700A3D811 /* SavingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CEA569EA28918A5B00A3D811 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CEA569EB28918ABE00A3D811 /* HomeView.swift */,
+				CEA569F92891B5E700A3D811 /* SavingsView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CEA569EF28918B4400A3D811 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CEA569F028918BB600A3D811 /* TabItem.swift */,
+				CEA56A042891D78800A3D811 /* FormComponentModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CEA569F22891A7C300A3D811 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CEA569F72891A7F200A3D811 /* Localizable.strings */,
+				CEA56A082891DB6800A3D811 /* CommonFunctions.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,6 +174,7 @@
 			knownRegions = (
 				en,
 				Base,
+				si,
 			);
 			mainGroup = CEA569CD28905F8B00A3D811;
 			productRefGroup = CEA569D728905F8B00A3D811 /* Products */;
@@ -126,6 +192,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA569E128905F8C00A3D811 /* Preview Assets.xcassets in Resources */,
+				CEA569F52891A7F200A3D811 /* Localizable.strings in Resources */,
 				CEA569DE28905F8C00A3D811 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,12 +204,31 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA56A092891DB6800A3D811 /* CommonFunctions.swift in Sources */,
+				CEA56A072891DA9700A3D811 /* SavingsViewModel.swift in Sources */,
+				CEA569EC28918ABE00A3D811 /* HomeView.swift in Sources */,
 				CEA569DC28905F8B00A3D811 /* ContentView.swift in Sources */,
+				CEA56A032891CFCF00A3D811 /* Financial_Calc.xcdatamodeld in Sources */,
+				CEA569F128918BB600A3D811 /* TabItem.swift in Sources */,
 				CEA569DA28905F8B00A3D811 /* FinancialCalcApp.swift in Sources */,
+				CEA569FA2891B5E700A3D811 /* SavingsView.swift in Sources */,
+				CEA56A052891D78800A3D811 /* FormComponentModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		CEA569F72891A7F200A3D811 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				CEA569F62891A7F200A3D811 /* en */,
+				CEA569F82891A7F400A3D811 /* si */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CEA569E228905F8C00A3D811 /* Debug */ = {
@@ -273,8 +359,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -284,7 +371,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -302,8 +389,9 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -313,7 +401,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -339,6 +427,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		CEA56A012891CFCF00A3D811 /* Financial_Calc.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				CEA56A022891CFCF00A3D811 /* Financial_Calc.xcdatamodel */,
+			);
+			currentVersion = CEA56A022891CFCF00A3D811 /* Financial_Calc.xcdatamodel */;
+			path = Financial_Calc.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = CEA569CE28905F8B00A3D811 /* Project object */;
 }
