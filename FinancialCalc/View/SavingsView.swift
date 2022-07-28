@@ -14,8 +14,10 @@ enum PlusMinus: String {
 
 struct SavingsView: View {
     
-    @ObservedObject private var viewModel = SavingsViewModel()
+    @ObservedObject private var viewModel = SavingsViewModel.shared
     @State private var plusMinus = PlusMinus.plus
+    @State private var showHistory = false
+    @State private var showHelp = false
     
     init() {
         UISegmentedControl.appearance().selectedSegmentTintColor = .systemGreen
@@ -83,10 +85,10 @@ struct SavingsView: View {
                         }
                         
                         VStack(alignment: .leading) {
-                            TextField("Compounds Per Year", text: $viewModel.compundsPerYear.value)
+                            TextField("Compounds Per Year", text: $viewModel.compoundsPerYear.value)
                                 .keyboardType(.decimalPad)
                             
-                            if viewModel.compundsPerYear.isError {
+                            if viewModel.compoundsPerYear.isError {
                                 Text("Invalid entry")
                                     .foregroundColor(.red).opacity(0.7)
                                     .font(.system(size: 10, weight: .semibold)
@@ -130,20 +132,49 @@ struct SavingsView: View {
                         .pickerStyle(.segmented)
                     }
                     
-                    // Calculate button
-                    Button(action: {
-                        viewModel.onPressCalc()
-                    }) {
-                        RoundedRectangle(cornerRadius: 10)
-                            .frame(height: 60)
-                            .overlay(
-                                Text("Calculat")
-                                    .foregroundColor(
-                                        Color(.white)
-                                    )
-                            )
+                    Button(role: .destructive) {
+                        viewModel.clearValues()
+                    } label: {
+                        Text("Clear All")
                     }
                     
+                    Section {
+                        HStack {
+                            Text("History")
+                                .foregroundColor(Color(hex: 0x1E90FF))
+                            
+                            Spacer()
+                            
+                            Button {
+                                showHelp.toggle()
+                            } label: {
+                                Label("", systemImage: "clock.arrow.circlepath")
+                                    .font(.system(size: 20))
+                            }
+                            .fullScreenCover(isPresented: $showHelp, content: {
+                                SavingsHistoryView()
+                            })
+                        }
+                    }
+                    
+                    Section {
+                        HStack {
+                            Text("Help")
+                                .foregroundColor(Color(hex: 0x1E90FF))
+                            
+                            Spacer()
+                            
+                            Button {
+                                showHistory.toggle()
+                            } label: {
+                                Label("", systemImage: "questionmark.circle")
+                                    .font(.system(size: 20))
+                            }
+                            .fullScreenCover(isPresented: $showHistory, content: {
+                                SavingsHelpView()
+                            })
+                        }
+                    }
                 }
             }
             
@@ -151,62 +182,26 @@ struct SavingsView: View {
             .navigationTitle("Savings")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
-                    /* MARK: TODO
-                     1. Calculate button
-                     2. Keyboard dismiss button
-                    */
-            
                     Button {
-                        print("On click history")
+                        hideKeyboard()
                     } label: {
-                        VStack {
-                            Label("", systemImage: "clock.arrow.circlepath")
-                            Text(NSLocalizedString("history", comment: ""))
-                                .font(
-                                    .system(size: 8, weight: .heavy, design: .rounded)
-                                )
-                        }
+                        Image(systemName: "keyboard.chevron.compact.down")
                     }
                     
-                    Button {
-                        print("On click help")
-                    } label: {
-                        VStack {
-                            Label("", systemImage: "questionmark.circle")
-                            Text(NSLocalizedString("help", comment: ""))
-                                .font(
-                                    .system(size: 8, weight: .heavy, design: .rounded)
-                                )
+                    Button("Calculate", action: viewModel.onPressCalc)
+                        .alert(isPresented: $viewModel.allFieldsFilledAlertPresented) {
+                            Alert(title: Text("Alert"),
+                                  message: Text("Please leave one of the values blank to perform the calculation"),
+                                  dismissButton:
+                                    .default(Text("Ok"),
+                                             action: {
+                                viewModel.allFieldsFilledAlertPresented = false
+                            })
+                            )
                         }
-                        
-                    }
-                    
-                    Button {
-                        viewModel.clearValues()
-                    } label: {
-                        VStack {
-                            Label("", systemImage: "clear")
-                            Text(NSLocalizedString("clear", comment: ""))
-                                .font(
-                                    .system(size: 8, weight: .heavy, design: .rounded)
-                                )
-                        }
-                        
-                    }
-                    
                 }
             }
         }
-//         Hide the keyboard when tap on outside
-//        .onTapGesture {
-//            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//        }
-//        .gesture(
-//            DragGesture(minimumDistance: 0, coordinateSpace: .local).onEnded({ gesture in
-//                if gesture.translation.height > 0 {
-//                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-//                }
-//        }))
     }
 }
 

@@ -8,112 +8,60 @@
 import SwiftUI
 
 struct HomeView: View {
-    @Environment(\.colorScheme) var colorScheme
-    @State var selectedTabIndex = 1
-
-    let tabBarIcons = [
-        TabItem(title: NSLocalizedString("home", comment: ""), iconName: "rectangle.grid.2x2.fill"),
-        TabItem(title: NSLocalizedString("savings", comment: ""), iconName: "person"),
-        TabItem(title: NSLocalizedString("mortgage", comment: ""), iconName: "gear"),
-        TabItem(title: NSLocalizedString("loan", comment: ""), iconName: "pencil")
-    ]
+    
+    let screenWidth = UIScreen.main.bounds.size.width
+    let screenHeight = UIScreen.main.bounds.size.height
+    
+    var tabItems: [TabItem]
+    
+    init(tabItems: [TabItem]) {
+        self.tabItems = tabItems
+    }
     
     var body: some View {
-        VStack(spacing: 0) {
-            ZStack {
-                switch selectedTabIndex {
-                case 0:
-                    Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-                case 1:
-                    SavingsView()
-                case 2:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
-                case 3:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
-                case 4:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
-                default:
-                    Text("Remaining tabs")
-                }
-            }
+        let heightDivider = screenHeight < 720 ? CGFloat(20) : CGFloat(10);
+        
+        VStack(alignment: .leading) {
             
-            // Tabbar section
-            HStack(alignment: .firstTextBaseline) {
-                let selectedTabColor = colorScheme == .dark ? Color(.white) : Color(.black)
-                let tabColor = colorScheme == .dark ? Color(.white).opacity(0.5) : .init(white: 0.8)
-                
-                ForEach(0..<tabBarIcons.count, id: \.self) { index in
-                    let isSelected = selectedTabIndex == index
-                    let tabItem = tabBarIcons[index]
+            VStack(alignment: .leading) {
+                Text("Hello,")
+                    .foregroundColor(.white)
+                    .font(
+                        .system(size: 48, weight: .heavy, design: .rounded)
+                    )
+                Text("Have a nice day ...!")
+                    .foregroundColor(.white.opacity(0.6))
+                    .font(
+                        .system(size: 24, weight: .heavy, design: .rounded)
+                    )
+            }
+            .padding(.bottom, screenHeight / heightDivider)
+            .padding(.leading, 20)
+            
+            HStack {
+                VStack {
+                    GlassMorphicCardView(tabItem: tabItems[1])
+                        .padding()
                     
-                    Button(action: {
-                        selectedTabIndex = index
-                    }, label: {
-                        Spacer()
-                        if index == 0 {
-                            VStack {
-                                Image(systemName: tabItem.iconName)
-                                    .font(
-                                        .system(size: 44, weight: .bold)
-                                    )
-                                    .foregroundColor(
-                                        isSelected ? Color(.orange) : tabColor
-                                    )
-                                
-                                Text(tabItem.title)
-                                    .padding(.top, 2)
-                                    .foregroundColor(
-                                        isSelected ? Color(.orange) : tabColor
-                                    )
-                                    .font(
-                                        .system(size: 10, weight: .heavy, design: .rounded)
-                                    )
-                            }
-                        } else {
-                            VStack {
-                                Image(systemName: tabItem.iconName)
-                                    .font(
-                                        .system(size: isSelected ? 28 : 24, weight: .bold)
-                                    )
-                                    .foregroundColor(
-                                        isSelected ? selectedTabColor : tabColor
-                                    )
-                                
-                                Text(tabItem.title)
-                                    .padding(.top, 2)
-                                    .foregroundColor(
-                                        isSelected ? selectedTabColor : tabColor
-                                    )
-                                    .font(
-                                        .system(size: 10, weight: .heavy, design: .rounded)
-                                    )
-                            }
-                        }
-                        Spacer()
-                    })
+                    GlassMorphicCardView(tabItem: tabItems[2])
+                        .padding()
+                }
+                
+                VStack {
+                    GlassMorphicCardView(tabItem: tabItems[3])
+                        .padding()
                 }
             }
-            .padding(.top, 8)
-            .background(
-                Color.white
-                    .shadow(color: Color.gray, radius: 8, x: 0, y: 0)
-                    .mask(Rectangle().padding(.top, -20))
-            )
+            .padding(.bottom, screenHeight / heightDivider)
         }
+        .frame(maxWidth: .infinity)
+        .frame(maxHeight: .infinity)
+        .background(Color(hex: 0x8B0ACF))
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
-            .preferredColorScheme(.light)
+        HomeView(tabItems: [])
     }
 }
-
-// Color(red: 7, green: 158, blue: 245)
