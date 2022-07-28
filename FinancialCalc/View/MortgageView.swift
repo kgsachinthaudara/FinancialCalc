@@ -1,21 +1,15 @@
 //
-//  SavingsView.swift
+//  MortgageView.swift
 //  FinancialCalc
 //
-//  Created by user on 2022-07-27.
+//  Created by user on 2022-07-28.
 //
 
 import SwiftUI
 
-enum PlusMinus: String {
-    case plus = "+"
-    case minus = "-"
-}
-
-struct SavingsView: View {
+struct MortgageView: View {
     
-    @ObservedObject private var viewModel = SavingsViewModel.shared
-    @State private var plusMinus = PlusMinus.plus
+    @ObservedObject private var viewModel = MortgageViewModel.shared
     @State private var showHistory = false
     @State private var showHelp = false
     
@@ -33,22 +27,10 @@ struct SavingsView: View {
                 Form {
                     Section {
                         VStack(alignment: .leading) {
-                            TextField("Present Value", text: $viewModel.presentValue.value)
+                            TextField("Loan Amount", text: $viewModel.loanAmount.value)
                                 .keyboardType(.decimalPad)
                             
-                            if viewModel.presentValue.isError {
-                                Text("Invalid entry")
-                                    .foregroundColor(.red).opacity(0.7)
-                                    .font(.system(size: 10, weight: .semibold)
-                                    )
-                            }
-                        }
-                        
-                        VStack(alignment: .leading) {
-                            TextField("Future Value", text: $viewModel.futureValue.value)
-                                .keyboardType(.decimalPad)
-                            
-                            if viewModel.futureValue.isError {
+                            if viewModel.loanAmount.isError {
                                 Text("Invalid entry")
                                     .foregroundColor(.red).opacity(0.7)
                                     .font(.system(size: 10, weight: .semibold)
@@ -73,63 +55,30 @@ struct SavingsView: View {
                     
                     Section {
                         VStack(alignment: .leading) {
-                            TextField("No of Payments Per Year", text: $viewModel.paymentsPerYear.value)
+                            TextField("No of Years", text: $viewModel.noOfYears.value)
                                 .keyboardType(.decimalPad)
                             
-                            if viewModel.paymentsPerYear.isError {
+                            if viewModel.noOfYears.isError {
                                 Text("Invalid entry")
                                     .foregroundColor(.red).opacity(0.7)
                                     .font(.system(size: 10, weight: .semibold)
                                     )
                             }
                         }
-                        
+                    }
+                    
+                    Section {
                         VStack(alignment: .leading) {
-                            TextField("Compounds Per Year", text: $viewModel.compoundsPerYear.value)
+                            TextField("Payment", text: $viewModel.payment.value)
                                 .keyboardType(.decimalPad)
                             
-                            if viewModel.compoundsPerYear.isError {
+                            if viewModel.payment.isError {
                                 Text("Invalid entry")
                                     .foregroundColor(.red).opacity(0.7)
                                     .font(.system(size: 10, weight: .semibold)
                                     )
                             }
                         }
-                    }
-                    
-                    Section(header: Text("Payment")) {
-                        HStack(spacing: 16) {
-                            Picker("", selection: $plusMinus) {
-                                Text(PlusMinus.plus.rawValue)
-                                    .tag(PlusMinus.plus)
-                                Text(PlusMinus.minus.rawValue)
-                                    .tag(PlusMinus.minus)
-                            }
-                            .pickerStyle(.segmented)
-                            .frame(width: 100)
-                            
-                            VStack(alignment: .leading) {
-                                TextField("Value", text: $viewModel.payment.value)
-                                    .keyboardType(.decimalPad)
-                                
-                                if viewModel.payment.isError {
-                                    Text("Invalid entry")
-                                        .foregroundColor(.red).opacity(0.7)
-                                        .font(.system(size: 10, weight: .semibold)
-                                        )
-                                }
-                            }
-                        }
-                    }
-                    
-                    Section(header: Text("Payment Made At")) {
-                        Picker("", selection: $viewModel.paymentMadeAtEnd) {
-                            Text("Beginning")
-                                .tag(false)
-                            Text("End")
-                                .tag(true)
-                        }
-                        .pickerStyle(.segmented)
                     }
                     
                     Section {
@@ -146,7 +95,7 @@ struct SavingsView: View {
                                     .font(.system(size: 20))
                             }
                             .fullScreenCover(isPresented: $showHistory, content: {
-                                SavingsHistoryView()
+                                MortgageHistoryView()
                             })
                         }
                         
@@ -163,7 +112,7 @@ struct SavingsView: View {
                                     .font(.system(size: 20))
                             }
                             .fullScreenCover(isPresented: $showHelp, content: {
-                                SavingsHelpView()
+                                MortgageHelpView()
                             })
                         }
                     }
@@ -177,7 +126,7 @@ struct SavingsView: View {
             }
             
             // Navigation view config
-            .navigationTitle("Savings")
+            .navigationTitle("Mortgage")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
@@ -203,8 +152,8 @@ struct SavingsView: View {
     }
 }
 
-struct SavingsView_Previews: PreviewProvider {
+struct MortgageView_Previews: PreviewProvider {
     static var previews: some View {
-        SavingsView()
+        MortgageView()
     }
 }

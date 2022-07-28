@@ -1,5 +1,5 @@
 //
-//  SavingsHelpView.swift
+//  MortgageView.swift
 //  FinancialCalc
 //
 //  Created by user on 2022-07-28.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SavingsHelpView: View {
+struct MortgageHelpView: View {
     
     @Environment(\.presentationMode) var presentationMode
     
@@ -25,7 +25,7 @@ struct SavingsHelpView: View {
                         .padding(20)
                 })
                 
-                Text("Savings Help")
+                Text("Mortgage Help")
                     .font(
                         .system(size: 16, weight: .heavy, design: .rounded)
                     )
@@ -39,7 +39,7 @@ struct SavingsHelpView: View {
                         .system(size: 14)
                     )
                     .padding(10)
-                Text("You can calculate savings with no. further payments or with regular contributions")
+                Text("You can calculate mortgage with no. further payments or with regular contributions")
                     .font(
                         .system(size: 16, weight: .regular, design: .rounded)
                     )
@@ -76,28 +76,13 @@ struct SavingsHelpView: View {
             }
             .padding()
             
-            HStack(alignment: .firstTextBaseline) {
-                Image(systemName: "staroflife.fill")
-                    .foregroundColor(.purple)
-                    .opacity(0.7)
-                    .font(
-                        .system(size: 14)
-                    )
-                    .padding(10)
-                Text("When calculating future value either payment can be specified or leave it empty for fixed sum investment.")
-                    .font(
-                        .system(size: 16, weight: .regular, design: .rounded)
-                    )
-            }
-            .padding()
-            
             Spacer()
         }
     }
 }
 
-struct SavingsHelpView_Previews: PreviewProvider {
+struct MortgageHelpView_Previews: PreviewProvider {
     static var previews: some View {
-        SavingsHelpView()
+        MortgageHelpView()
     }
 }

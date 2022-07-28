@@ -1,5 +1,5 @@
 //
-//  SwiftUIView.swift
+//  LoanHistoryView.swift
 //  FinancialCalc
 //
 //  Created by user on 2022-07-28.
@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-struct SavingsHistoryView: View {
+struct LoanHistoryView: View {
     
     @Environment(\.presentationMode) var presentationMode
-    @ObservedObject private var viewModel = SavingsViewModel.shared
+    @ObservedObject private var viewModel = LoanViewModel.shared
     private let commonFunctions = CommonFunctions()
     
     var body: some View {
@@ -27,7 +27,7 @@ struct SavingsHistoryView: View {
                         .padding(20)
                 })
                 
-                Text("Savings History")
+                Text("Loan History")
                     .font(
                         .system(size: 16, weight: .heavy, design: .rounded)
                     )
@@ -56,8 +56,8 @@ struct SavingsHistoryView: View {
     }
 }
 
-struct SavingsHistoryView_Previews: PreviewProvider {
+struct LoanHistoryView_Previews: PreviewProvider {
     static var previews: some View {
-        SavingsHistoryView()
+        LoanHistoryView()
     }
 }

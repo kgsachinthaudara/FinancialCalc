@@ -1,20 +1,15 @@
 //
-//  SavingsView.swift
+//  LoanView.swift
 //  FinancialCalc
 //
-//  Created by user on 2022-07-27.
+//  Created by user on 2022-07-28.
 //
 
 import SwiftUI
 
-enum PlusMinus: String {
-    case plus = "+"
-    case minus = "-"
-}
-
-struct SavingsView: View {
+struct LoanView: View {
     
-    @ObservedObject private var viewModel = SavingsViewModel.shared
+    @ObservedObject private var viewModel = LoanViewModel.shared
     @State private var plusMinus = PlusMinus.plus
     @State private var showHistory = false
     @State private var showHelp = false
@@ -97,39 +92,18 @@ struct SavingsView: View {
                         }
                     }
                     
-                    Section(header: Text("Payment")) {
-                        HStack(spacing: 16) {
-                            Picker("", selection: $plusMinus) {
-                                Text(PlusMinus.plus.rawValue)
-                                    .tag(PlusMinus.plus)
-                                Text(PlusMinus.minus.rawValue)
-                                    .tag(PlusMinus.minus)
-                            }
-                            .pickerStyle(.segmented)
-                            .frame(width: 100)
+                    Section {
+                        VStack(alignment: .leading) {
+                            TextField("Payment", text: $viewModel.payment.value)
+                                .keyboardType(.decimalPad)
                             
-                            VStack(alignment: .leading) {
-                                TextField("Value", text: $viewModel.payment.value)
-                                    .keyboardType(.decimalPad)
-                                
-                                if viewModel.payment.isError {
-                                    Text("Invalid entry")
-                                        .foregroundColor(.red).opacity(0.7)
-                                        .font(.system(size: 10, weight: .semibold)
-                                        )
-                                }
+                            if viewModel.payment.isError {
+                                Text("Invalid entry")
+                                    .foregroundColor(.red).opacity(0.7)
+                                    .font(.system(size: 10, weight: .semibold)
+                                    )
                             }
                         }
-                    }
-                    
-                    Section(header: Text("Payment Made At")) {
-                        Picker("", selection: $viewModel.paymentMadeAtEnd) {
-                            Text("Beginning")
-                                .tag(false)
-                            Text("End")
-                                .tag(true)
-                        }
-                        .pickerStyle(.segmented)
                     }
                     
                     Section {
@@ -146,7 +120,7 @@ struct SavingsView: View {
                                     .font(.system(size: 20))
                             }
                             .fullScreenCover(isPresented: $showHistory, content: {
-                                SavingsHistoryView()
+                                LoanHistoryView()
                             })
                         }
                         
@@ -163,7 +137,7 @@ struct SavingsView: View {
                                     .font(.system(size: 20))
                             }
                             .fullScreenCover(isPresented: $showHelp, content: {
-                                SavingsHelpView()
+                                LoanHelpView()
                             })
                         }
                     }
@@ -177,7 +151,7 @@ struct SavingsView: View {
             }
             
             // Navigation view config
-            .navigationTitle("Savings")
+            .navigationTitle("Loan")
             .toolbar {
                 ToolbarItemGroup(placement: .navigationBarTrailing) {
                     Button {
@@ -203,8 +177,9 @@ struct SavingsView: View {
     }
 }
 
-struct SavingsView_Previews: PreviewProvider {
+struct LoanView_Previews: PreviewProvider {
     static var previews: some View {
-        SavingsView()
+        LoanView()
     }
 }
+

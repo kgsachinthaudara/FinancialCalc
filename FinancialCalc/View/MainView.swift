@@ -28,17 +28,9 @@ struct MainView: View {
                 case 1:
                     SavingsView()
                 case 2:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
+                    MortgageView()
                 case 3:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
-                case 4:
-                    NavigationView {
-                        Text("First").navigationTitle("First Tab")
-                    }
+                    LoanView()
                 default:
                     Text("Remaining tabs")
                 }

@@ -8,56 +8,51 @@
 import SwiftUI
 import CoreData
 
-class SavingsViewModel: ObservableObject {
+class LoanViewModel: ObservableObject {
     
-    static let shared = SavingsViewModel()
+    static let shared = LoanViewModel()
     
     private let userDefaults = UserDefaults.standard;
     private let commonFunctions = CommonFunctions()
     private let dataContainer: NSPersistentContainer
     
-    @Published var savedRecords: [SavingsData] = []
+    @Published var savedRecords: [LoanData] = []
     
-    @Published var futureValue = FormComponentModel(value: "", keyTag: "futureValue") {
+    
+    @Published var presentValue = FormComponentModel(value: "", keyTag: "loanPresentValue") {
+        didSet {
+            userDefaults.set(presentValue.value, forKey: presentValue.keyTag)
+            presentValue.clearError()
+        }
+    }
+    @Published var futureValue = FormComponentModel(value: "", keyTag: "loanFutureValue") {
             didSet {
                 userDefaults.set(futureValue.value, forKey: futureValue.keyTag)
                 futureValue.clearError()
             }
         }
-    @Published var compoundsPerYear = FormComponentModel(value: "", keyTag: "compoundsPerYear") {
+    @Published var compoundsPerYear = FormComponentModel(value: "", keyTag: "loanCompoundsPerYear") {
             didSet {
                 userDefaults.set(compoundsPerYear.value, forKey: compoundsPerYear.keyTag)
                 compoundsPerYear.clearError()
             }
         }
-    
-    @Published var interest = FormComponentModel(value: "", keyTag: "interest") {
+    @Published var interest = FormComponentModel(value: "", keyTag: "loanInterest") {
             didSet {
                 userDefaults.set(interest.value, forKey: interest.keyTag)
                 interest.clearError()
             }
         }
-    @Published var payment = FormComponentModel(value: "", keyTag: "payment") {
+    @Published var payment = FormComponentModel(value: "", keyTag: "loanPayment") {
             didSet {
                 userDefaults.set(payment.value, forKey: payment.keyTag)
                 payment.clearError()
             }
         }
-    @Published var paymentMadeAtEnd = false {
-            didSet {
-                userDefaults.set(paymentMadeAtEnd, forKey:"paymentMadeAtEnd")
-            }
-        }
-    @Published var paymentsPerYear = FormComponentModel(value: "", keyTag: "paymentsPerYear") {
+    @Published var paymentsPerYear = FormComponentModel(value: "", keyTag: "loanPaymentsPerYear") {
             didSet {
                 userDefaults.set(paymentsPerYear.value, forKey: paymentsPerYear.keyTag)
                 paymentsPerYear.clearError()
-            }
-        }
-    @Published var presentValue = FormComponentModel(value: "", keyTag: "presentValue") {
-            didSet {
-                userDefaults.set(presentValue.value, forKey: presentValue.keyTag)
-                presentValue.clearError()
             }
         }
     @Published var allFieldsFilledAlertPresented = false
@@ -82,28 +77,21 @@ class SavingsViewModel: ObservableObject {
         self.payment.value = userDefaults.string(forKey: payment.keyTag) ?? ""
         self.paymentsPerYear.value = userDefaults.string(forKey: paymentsPerYear.keyTag) ?? ""
         self.presentValue.value = userDefaults.string(forKey: presentValue.keyTag) ?? ""
-        
-        if userDefaults.object(forKey: "paymentMadeAtEnd") != nil
-        {
-            self.paymentMadeAtEnd = userDefaults.bool(forKey: "paymentMadeAtEnd")
-        } else {
-            self.paymentMadeAtEnd = false
-        }
     }
     
     func fetchDataRecords() {
-        let request = NSFetchRequest<SavingsData>(entityName: "SavingsData")
+        let request = NSFetchRequest<LoanData>(entityName: "LoanData")
         
         do {
             savedRecords = try dataContainer.viewContext.fetch(request)
             
         } catch let error {
-            print("ERROR FETCH SavingsData RECORDS ::: \(error)")
+            print("ERROR FETCH LoanData RECORDS ::: \(error)")
         }
     }
     
     func addDataRecord() {
-        let newRecord = SavingsData(context: dataContainer.viewContext)
+        let newRecord = LoanData(context: dataContainer.viewContext)
         
         newRecord.compoundsPerYear = self.compoundsPerYear.formattedValue
         newRecord.futureValue = self.futureValue.formattedValue
@@ -111,7 +99,6 @@ class SavingsViewModel: ObservableObject {
         newRecord.payment = self.payment.formattedValue
         newRecord.paymentsPerYear = self.paymentsPerYear.formattedValue
         newRecord.presentValue = self.presentValue.formattedValue
-        newRecord.paymentMadeAtEnd = self.paymentMadeAtEnd
         
         saveDataRecord()
     }
@@ -121,7 +108,7 @@ class SavingsViewModel: ObservableObject {
             try dataContainer.viewContext.save()
             fetchDataRecords()
         } catch let error {
-            print("ERROR SAVE SavingsData RECORD ::: \(error)")
+            print("ERROR SAVE LoanData RECORD ::: \(error)")
         }
         
     }
@@ -135,14 +122,15 @@ class SavingsViewModel: ObservableObject {
         saveDataRecord()
     }
     
-    func onSelectRecord(record: SavingsData) {
+    func onSelectRecord(record: LoanData) {
         self.compoundsPerYear.value = record.compoundsPerYear.description
         self.futureValue.value = record.futureValue.description
         self.interest.value = record.interest.description
         self.payment.value = record.payment.description
-        self.paymentMadeAtEnd = record.paymentMadeAtEnd
         self.paymentsPerYear.value = record.paymentsPerYear.description
         self.presentValue.value = record.presentValue.description
+        
+        objectWillChange.send()
     }
     
     // calc button press handler
@@ -203,6 +191,11 @@ class SavingsViewModel: ObservableObject {
         {
             emptyFormComponents.append(compoundsPerYear)
         }
+        if(payment.isEmpty)
+        {
+            emptyFormComponents.append(compoundsPerYear)
+            functionToPerform = calculateFutureValue
+        }
 
 
         // If not empty field, display alert
@@ -216,21 +209,9 @@ class SavingsViewModel: ObservableObject {
         {
             interest.formattedValue = interest.formattedValue / 100 //0.50
 
-            //calculate future value based on PMT
-            if(futureValue.formattedValue == 0)
+            if functionToPerform != nil
             {
-               calculateFutureValue()
-            }
-            else
-            {
-                if functionToPerform != nil
-                {
-                    // we need the payment value only when calculating future value, therefore clear payment value
-                    payment.value = "0"
-                    prepareEachValue(formComponent: payment)
-
-                    functionToPerform!()
-                }
+                functionToPerform!()
             }
 
             // Add for the core data
@@ -277,21 +258,8 @@ class SavingsViewModel: ObservableObject {
         let b =  1 + (interest.formattedValue / compoundsPerYear.formattedValue)
         futureValue.formattedValue = pow(b,a) * presentValue.formattedValue
 
-        if(payment.formattedValue > 0)
-        {
-            if(paymentMadeAtEnd)
-            {
-                futureValue.formattedValue += calculateFutureValueofSeriesEnd(a: a, b: b)
-            }
-            else
-            {
-                futureValue.formattedValue += calculateFutureValueofSeriesBegining(a: a, b: b)
-            }
-        }
-
         payment.value = commonFunctions.getFormattedDecimalString(value: payment.formattedValue)
         futureValue.value = commonFunctions.getFormattedDecimalString(value: futureValue.formattedValue)
-
     }
 
 
@@ -318,14 +286,8 @@ class SavingsViewModel: ObservableObject {
         let futureValueOfSeries: Double = futureValue.formattedValue - (pow(b,a) * presentValue.formattedValue)
         var finalAnswer: Double = 0
 
-        if(paymentMadeAtEnd)
-        {
-            finalAnswer = futureValueOfSeries / c
-        }
-        else
-        {
-            finalAnswer = futureValueOfSeries / (c * b)
-        }
+        finalAnswer = futureValueOfSeries / c
+        
         payment.value = commonFunctions.getFormattedDecimalString(value: finalAnswer)
     }
     
@@ -334,7 +296,6 @@ class SavingsViewModel: ObservableObject {
         self.futureValue.value = ""
         self.interest.value = ""
         self.payment.value = ""
-        self.paymentMadeAtEnd = false
         self.paymentsPerYear.value = ""
         self.presentValue.value = ""
         

@@ -3,6 +3,17 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #2 in closure #1 in SavingsHistoryView.body.getter:SavingsView.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in SavingsHistoryView.body.getter:SavingsHistoryView.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "viewModel.savedRecords">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "SavingsViewModel.addDataRecord():SavingsViewModel.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,13 +22,13 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #2 in closure #1 in SavingsHistoryView.body.getter:SavingsView.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in SavingsHistoryView.body.getter:SavingsHistoryView.swift">
+         contextName = "LoanViewModel.calculatePayment():LoanViewModel.swift">
          <PersistentStrings>
             <PersistentString
-               value = "viewModel.savedRecords">
+               value = "payment.formattedValue">
+            </PersistentString>
+            <PersistentString
+               value = "interest.formattedValue">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

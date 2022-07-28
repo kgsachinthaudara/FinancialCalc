@@ -42,7 +42,6 @@ struct GlassMorphicCardView : View {
                 )
                 .shadow(color: .black.opacity(0.1), radius: 5, x: -5, y: -5)
                 .shadow(color: .black.opacity(0.1), radius: 5, x: 5, y: 5)
-            
             VStack {
                 Image(systemName: tabItem.iconName)
                     .foregroundColor(.white)
