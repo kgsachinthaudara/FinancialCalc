@@ -179,8 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				CEA56A162892B63B00A3D811 /* SavingsHistoryView.swift */,
-				CEE46AB62892DC8900F16BC9 /* LoanHistoryView.swift */,
 				CEE46ABE2892E99A00F16BC9 /* MortgageHistoryView.swift */,
+				CEE46AB62892DC8900F16BC9 /* LoanHistoryView.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -189,8 +189,8 @@
 			isa = PBXGroup;
 			children = (
 				CEF8802A2892C18E00BD8B75 /* SavingsHelpView.swift */,
-				CEE46AB42892DB6900F16BC9 /* LoanHelpView.swift */,
 				CEE46ABA2892E79500F16BC9 /* MortgageHelpView.swift */,
+				CEE46AB42892DB6900F16BC9 /* LoanHelpView.swift */,
 			);
 			path = Help;
 			sourceTree = "<group>";

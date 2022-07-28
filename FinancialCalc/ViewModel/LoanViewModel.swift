@@ -193,7 +193,7 @@ class LoanViewModel: ObservableObject {
         }
         if(payment.isEmpty)
         {
-            emptyFormComponents.append(compoundsPerYear)
+            emptyFormComponents.append(payment)
             functionToPerform = calculateFutureValue
         }
 
